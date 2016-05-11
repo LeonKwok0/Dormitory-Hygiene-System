@@ -1,0 +1,357 @@
+package gui;
+
+import entity.Dormitory;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+
+import dao.Deduct;
+import dao.QueryTable;
+
+import javax.swing.JTabbedPane;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JComboBox;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import javax.swing.JSeparator;
+import javax.swing.DefaultComboBoxModel;
+import java.awt.event.ItemListener;
+import java.sql.SQLException;
+import java.util.Vector;
+import java.awt.event.ItemEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
+import javax.swing.JTable;
+
+public class MainDemo extends JFrame {
+
+	private JPanel contentPane;
+	private JTextField textFieldOtherReason;
+	private JComboBox comboBoxReason;
+	private JComboBox comboBoxBuliding;
+	private JComboBox comboBoxRoom;
+	private JTextField textFieldPoint;
+
+	private Dormitory dor = new Dormitory();
+	private String dorId;
+	private String time;
+	private String reasons1;
+	private int deductPoints;
+	private String buliding;
+	private String room;
+	private JLabel checkPoints;
+	
+	private Vector columnHeads;
+	private Vector rowdata;
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					MainDemo frame = new MainDemo();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	
+	/**
+	 * Create the frame.
+	 */
+	public MainDemo() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(new BorderLayout(0, 0));
+		setSize(600, 370); // (width,heigth) set size
+		setLocationRelativeTo(null); // center a frame
+
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+
+		JPanel panel = new JPanel();
+		tabbedPane.addTab("Deduct", null, panel, null);
+
+		JLabel lblNewLabel = new JLabel("Buliding:");
+
+		comboBoxBuliding = new JComboBox();
+		comboBoxBuliding.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				if (e.getStateChange() == ItemEvent.SELECTED) {
+					buliding = comboBoxBuliding.getSelectedItem().toString();
+				}
+			}
+		});
+		comboBoxBuliding.setModel(new DefaultComboBoxModel(new String[] { "01", "02", "03", "04", "05", "06", "07",
+				"08", "09", "10", "11", "12", "13", "14", "15" }));
+
+		JLabel lblNewLabel_1 = new JLabel("Room:");
+
+		comboBoxRoom = new JComboBox();
+		comboBoxRoom.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				if (e.getStateChange() == ItemEvent.SELECTED) {
+					room = comboBoxRoom.getSelectedItem().toString();
+				}
+			}
+		});
+		comboBoxRoom.setModel(new DefaultComboBoxModel(
+				new String[] { "101", "102", "103", "104", "201", "202", "203", "204", "301", "302", "303", "304" }));
+
+		JLabel lblNewLabel_2 = new JLabel("Reasons:");
+
+		comboBoxReason = new JComboBox();
+		comboBoxReason.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				/**
+				 * 就是item的状态发生改变时触发该事件，item在这里的状态有两个，Selected
+				 * 和deSelected（即选中和未被选中 所以，当改变下拉列表中被选中的项的时候，其实是触发了两次事件
+				 * 第一次是上次被选中的项的 State 由 Selected 变为 deSelected ，即取消选择，
+				 * 二次是本次被选中的项的 State 由 deSelected 变为 Selected ，即新选中，
+				 */
+				if (e.getStateChange() == ItemEvent.SELECTED) {
+					if (comboBoxReason.getSelectedItem().toString().equals("Other")) {
+						textFieldPoint.setText("");
+						textFieldOtherReason.setText("");
+					}
+
+					if (comboBoxReason.getSelectedItem().toString().equals("Pool is dirty")) {
+						textFieldOtherReason.setText("Detial:null");
+						textFieldPoint.setText("5");
+
+					}
+					if (comboBoxReason.getSelectedItem().toString().equals("Tolite is dirty")) {
+						textFieldOtherReason.setText("  Detial:null");
+						textFieldPoint.setText("5");
+
+					}
+					if (comboBoxReason.getSelectedItem().toString().equals("Unallowable things")) {
+						textFieldOtherReason.setText("  Detial:null");
+						textFieldPoint.setText("10");
+
+					}
+					if (comboBoxReason.getSelectedItem().toString().equals("Ground is dirty")) {
+						textFieldOtherReason.setText("  Detial:null");
+						textFieldPoint.setText("5");
+
+					}
+					reasons1 = comboBoxReason.getSelectedItem().toString();
+					System.out.println("comboBoxReason selected:" + reasons1);
+				}
+			}
+		});
+
+		comboBoxReason.setModel(new DefaultComboBoxModel(
+				new String[] { "Pool is dirty", "Tolite is dirty", "Ground is dirty", "Unallowable things", "Other" }));
+
+		textFieldOtherReason = new JTextField("  Detail:null");
+		textFieldOtherReason.setHorizontalAlignment(SwingConstants.LEFT);
+		textFieldOtherReason.setEditable(true);
+		textFieldOtherReason.setColumns(10);
+
+		JLabel lblNewLabel_3 = new JLabel("Points:");
+
+		JLabel lblNewLabel_4 = new JLabel("Time:");
+
+		JLabel lblNewLabel_5 = new JLabel("the");
+
+		JComboBox comboBoxTime = new JComboBox();
+		comboBoxTime.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				if (e.getStateChange() == ItemEvent.SELECTED) {
+					time = "The" + comboBoxTime.getSelectedItem().toString() + " Week";
+
+				}
+			}
+		});
+		comboBoxTime.setModel(new DefaultComboBoxModel(new String[] { "1th", "2nd", "3rd", "4th", "5th", "6th", "7th",
+				"8th", "9th", "10th", "11th", "12th", "13th", "14th", "15th", "16th" }));
+
+		JLabel lblNewLabel_6 = new JLabel("Week");
+
+		
+		
+		/**
+		 * submit button event
+		 */
+		JButton btnNewButton = new JButton("Submit");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// cast string point to int 
+				CastPoints(textFieldPoint.getText());
+				
+				// comfirm dialog
+				String message = "Dormitory: " + buliding + room + "\n" + "reason: " + reasons1
+						+ textFieldOtherReason.getText() + "\n" + "time: " + time + "\n" + "Duct points:"
+						+ deductPoints;
+				int option = JOptionPane.showConfirmDialog(null, message,"Are you sure?",
+						JOptionPane.OK_CANCEL_OPTION);
+				if(option==0){
+					System.out.println(option);
+					addRecord();
+				}
+			}
+				
+		});
+
+		JSeparator separator = new JSeparator();
+
+		textFieldPoint = new JTextField();
+
+		textFieldPoint.setColumns(10);
+
+		JLabel lblNewLabel_7 = new JLabel("");
+
+		checkPoints = new JLabel("");
+		
+		JLabel labelReturnResult = new JLabel("Result:");
+
+		GroupLayout gl_panel = new GroupLayout(panel);
+		gl_panel.setHorizontalGroup(
+			gl_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addComponent(separator, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)
+						.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
+							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
+									.addComponent(lblNewLabel_2)
+									.addGroup(gl_panel.createSequentialGroup()
+										.addComponent(lblNewLabel_4)
+										.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(lblNewLabel_5)))
+								.addComponent(lblNewLabel)
+								.addComponent(lblNewLabel_3))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+								.addComponent(comboBoxBuliding, 0, 117, Short.MAX_VALUE)
+								.addComponent(comboBoxTime, 0, 117, Short.MAX_VALUE)
+								.addComponent(comboBoxReason, 0, 117, Short.MAX_VALUE)
+								.addComponent(textFieldPoint, GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_panel.createSequentialGroup()
+									.addComponent(lblNewLabel_1)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(comboBoxRoom, GroupLayout.PREFERRED_SIZE, 145, GroupLayout.PREFERRED_SIZE))
+								.addComponent(textFieldOtherReason, GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
+								.addComponent(lblNewLabel_6)
+								.addGroup(gl_panel.createSequentialGroup()
+									.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+										.addComponent(lblNewLabel_7)
+										.addGroup(gl_panel.createSequentialGroup()
+											.addGap(29)
+											.addComponent(checkPoints)))
+									.addPreferredGap(ComponentPlacement.RELATED, 131, Short.MAX_VALUE)
+									.addComponent(btnNewButton))))
+						.addComponent(labelReturnResult))
+					.addContainerGap())
+		);
+		gl_panel.setVerticalGroup(
+			gl_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblNewLabel)
+						.addComponent(comboBoxBuliding, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblNewLabel_1)
+						.addComponent(comboBoxRoom, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblNewLabel_2)
+						.addComponent(comboBoxReason, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(textFieldOtherReason, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblNewLabel_4)
+						.addComponent(comboBoxTime, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblNewLabel_5)
+						.addComponent(lblNewLabel_6))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(textFieldPoint, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblNewLabel_3)
+						.addComponent(btnNewButton)
+						.addComponent(lblNewLabel_7)
+						.addComponent(checkPoints))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(separator, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(labelReturnResult)
+					.addContainerGap(123, Short.MAX_VALUE))
+		);
+		panel.setLayout(gl_panel);
+		
+		JPanel panel_1 = new JPanel();
+		tabbedPane.addTab("Ranking", null, panel_1, null);
+
+		JPanel panel_2 = new JPanel();
+		tabbedPane.addTab("Alarm", null, panel_2, null);
+		contentPane.add(tabbedPane);
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * CastPoints(String points) is used to cast String Type(come from jtextfild
+	 * input) to int
+	 */
+	private int CastPoints(String points) {
+		checkPoints.setText("");
+		try {
+			this.deductPoints = Integer.parseInt(points);
+			if (this.deductPoints <= 0 || this.deductPoints >= 100) {
+				checkPoints.setText("Exceed Range");
+			}
+		} catch (NumberFormatException e1) {
+			checkPoints.setText(" Only Enter Interger");
+		} catch (Exception e) {
+			checkPoints.setText(" UnKnwon Error");
+		}
+		return deductPoints;
+
+	}
+	
+	
+	/**
+	 * add deductrecord and return result 
+	 */
+	private void addRecord(){
+		//set duct points record 
+		dor.setDorId("Buliding "+buliding+" Room "+room);
+		dor.setReasons(reasons1+""+textFieldOtherReason.getText());
+		dor.setDeductPoints(deductPoints);
+		dor.setTime(time);
+		Deduct deduct=new Deduct();
+		//add record to database
+		try {
+			deduct.update(dor);	
+		} catch (SQLException e2) {
+			e2.printStackTrace();
+		}
+		
+		
+		
+	}
+}

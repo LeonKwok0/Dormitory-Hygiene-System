@@ -23,12 +23,13 @@ public class Deduct {
 
 
 	boolean record;
-    /**
-     * 在方法update 这里存在一个问题
-     *之后有时间再解决
-     * @param dormitory
-     * @throws SQLException
-     */
+  
+	/**
+	 * check dormitory id if exisits 
+	 * @param dormitory
+	 * @return
+	 * @throws SQLException
+	 */
 	public boolean idExists(Dormitory dormitory) throws SQLException{
 		conn=ConnectionFactory.getInstance().makeConnection();
 		String sql="SELECT * FROM  Dormitory WHERE dorId=?";
@@ -63,12 +64,7 @@ public class Deduct {
 		ps2.setString(2, dormitory.getDorId());
 		ps2.execute();
 		
-		/* there is a problem here 
-		 * if the dorid is not exist in Dormitory, jvm dont return error 
-		 * 
-		 * 一个问题： 这里即使在Dormitory表没有指定的宿舍id 也不会报错
-		 *有空再解决。 
-		 */
+	
 		ps.close();
 		ps2.close();
 		

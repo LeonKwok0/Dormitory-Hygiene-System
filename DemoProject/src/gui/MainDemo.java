@@ -31,6 +31,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 import javax.swing.JTable;
+import javax.swing.JScrollPane;
 
 public class MainDemo extends JFrame {
 
@@ -53,6 +54,8 @@ public class MainDemo extends JFrame {
 	private Vector columnHeads;
 	private Vector rowdata;
 	private JLabel labelReturnResult;
+	private JTable tableRank;
+	private JScrollPane scrollPane;
 	/**
 	 * Launch the application.
 	 */
@@ -299,11 +302,48 @@ public class MainDemo extends JFrame {
 		);
 		panel.setLayout(gl_panel);
 		
+		JPanel panelRank = new JPanel();
+		tabbedPane.addTab("Ranking", null, panelRank, null);
+		panelRank.setLayout(new BorderLayout(0, 0));
+		
 		JPanel panel_1 = new JPanel();
-		tabbedPane.addTab("Ranking", null, panel_1, null);
+		panelRank.add(panel_1, BorderLayout.NORTH);
+		
+		JLabel lblNewLabel_8 = new JLabel("This is the dormitory Rank order by total points:");
+		lblNewLabel_8.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		JButton buttonRefresh = new JButton("Refresh");
+		buttonRefresh.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				rank();
+			}
+		});
+		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
+		gl_panel_1.setHorizontalGroup(
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_1.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(lblNewLabel_8, GroupLayout.PREFERRED_SIZE, 319, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED, 127, Short.MAX_VALUE)
+					.addComponent(buttonRefresh))
+		);
+		gl_panel_1.setVerticalGroup(
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, gl_panel_1.createParallelGroup(Alignment.BASELINE)
+					.addComponent(lblNewLabel_8, GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
+					.addComponent(buttonRefresh))
+		);
+		panel_1.setLayout(gl_panel_1);
+		
+		scrollPane = new JScrollPane();
+		panelRank.add(scrollPane, BorderLayout.CENTER);
+		
+		
+		tableRank = new JTable();
+		scrollPane.setViewportView(tableRank);
 
-		JPanel panel_2 = new JPanel();
-		tabbedPane.addTab("Alarm", null, panel_2, null);
+		JPanel panelAlarn = new JPanel();
+		tabbedPane.addTab("Alarm", null, panelAlarn, null);
 		contentPane.add(tabbedPane);
 	}
 
@@ -360,10 +400,22 @@ public class MainDemo extends JFrame {
 			
 		} catch (SQLException e2) {
 			e2.printStackTrace();
-		}
-		
-		
-		
+		}			
+	}
+	/**
+	 * this method is used to show table from Database
+	 */
+	public void rank(){
+		QueryTable query=new QueryTable();
+		query.Query("SELECT dorId, address, points FROM Dormitory ORDER BY points DESC");
+		columnHeads = query.getColumnHeads();
+		rowdata = query.getRowdata();
+		tableRank = new JTable(rowdata,columnHeads );
+		scrollPane.setViewportView(tableRank);
+		query.closeConn();
+	}
+	
+	public void alarm(){
 		
 	}
 }

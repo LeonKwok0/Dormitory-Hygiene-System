@@ -6,17 +6,40 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import entity.Dormitory;
+import gui.Error;
 
 public class Deduct {
 	Connection conn;
-	private ResultSet rs;
+	
 	private int currentPoints;
+	public int getCurrentPoints() {
+		return currentPoints;
+	}
+
+
+	public void setCurrentPoints(int currentPoints) {
+		this.currentPoints = currentPoints;
+	}
+
+
+	boolean record;
     /**
      * 在方法update 这里存在一个问题
      *之后有时间再解决
      * @param dormitory
      * @throws SQLException
      */
+	public boolean idExists(Dormitory dormitory) throws SQLException{
+		conn=ConnectionFactory.getInstance().makeConnection();
+		String sql="SELECT * FROM  Dormitory WHERE dorId=?";
+		PreparedStatement ps = conn.prepareCall(sql);
+		ps.setString(1, dormitory.getDorId());
+		ResultSet rs2=ps.executeQuery();
+		record = rs2.next();
+		return record;
+	}
+	
+	
 	public void update(Dormitory dormitory) throws SQLException {
 		// 向 表deduction_record 中添加记录 （这里是扣分记录）
 	
@@ -46,24 +69,24 @@ public class Deduct {
 		 * 一个问题： 这里即使在Dormitory表没有指定的宿舍id 也不会报错
 		 *有空再解决。 
 		 */
-		getCurrentPoints(dormitory);
 		ps.close();
 		ps2.close();
 		
 	}
 	
 	
-	public  void getCurrentPoints(Dormitory dormitory) throws SQLException {
-		String sql3="SELECT points FROM  Dormitory WHERE dorId=？";
+	public  void checkCurrentPoints(Dormitory dormitory) throws SQLException {
+		conn=ConnectionFactory.getInstance().makeConnection();
+		String sql3="SELECT points FROM  Dormitory WHERE dorId=?";
 		PreparedStatement ps3 = conn.prepareCall(sql3);
 		ps3.setString(1, dormitory.getDorId());
-		rs=ps3.executeQuery();
-		boolean record = rs.next();
+		 ResultSet rs=ps3.executeQuery();
+		record = rs.next();
 		if (!record) {
 			System.out.println("Error: no this Dor id");
 		}else{
 			this.currentPoints=rs.getInt("points");
-		}
+		}	
 		conn.close();
 	}
 	

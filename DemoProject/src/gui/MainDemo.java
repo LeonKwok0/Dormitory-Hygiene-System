@@ -52,6 +52,7 @@ public class MainDemo extends JFrame {
 	
 	private Vector columnHeads;
 	private Vector rowdata;
+	private JLabel labelReturnResult;
 	/**
 	 * Launch the application.
 	 */
@@ -219,7 +220,7 @@ public class MainDemo extends JFrame {
 
 		checkPoints = new JLabel("");
 		
-		JLabel labelReturnResult = new JLabel("Result:");
+		labelReturnResult = new JLabel("Result:");
 
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
@@ -339,17 +340,28 @@ public class MainDemo extends JFrame {
 	 */
 	private void addRecord(){
 		//set duct points record 
-		dor.setDorId("Buliding "+buliding+" Room "+room);
+		dor.setDorId(buliding+room);
 		dor.setReasons(reasons1+""+textFieldOtherReason.getText());
 		dor.setDeductPoints(deductPoints);
 		dor.setTime(time);
 		Deduct deduct=new Deduct();
+		
+		
 		//add record to database
 		try {
-			deduct.update(dor);	
+			if(deduct.idExists(dor)){
+				deduct.update(dor);
+				deduct.checkCurrentPoints(dor);
+				labelReturnResult.setText("Result:"+"Deduct Successfully !"+"\n"+
+												"Dormitory:"+dor.getDorId()+" Current Points: "+deduct.getCurrentPoints());
+			}else {
+				labelReturnResult.setText("Result:"+"\n"+"Error: No this Dormitory!");
+			}
+			
 		} catch (SQLException e2) {
 			e2.printStackTrace();
 		}
+		
 		
 		
 		

@@ -33,7 +33,7 @@ import javax.swing.SwingConstants;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 
-public class MainDemo extends JFrame {
+public class Main extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textFieldOtherReason;
@@ -67,7 +67,7 @@ public class MainDemo extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MainDemo frame = new MainDemo();
+					Main frame = new Main();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -79,7 +79,7 @@ public class MainDemo extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public MainDemo() {
+	public Main() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -442,7 +442,7 @@ public class MainDemo extends JFrame {
 		Vector columnHeads2;
 		Vector rowdata2;
 		QueryTable query = new QueryTable();
-		query.Query("SELECT dorId, address, points FROM Dormitory WHERE points<60 ");
+		query.Query("SELECT dorId, address, points FROM Dormitory WHERE points<60 ORDER BY points ");
 		columnHeads2 = query.getColumnHeads();
 		rowdata2 = query.getRowdata();
 		tableAlarm = new JTable(rowdata2, columnHeads2);

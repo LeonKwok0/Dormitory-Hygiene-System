@@ -22,6 +22,8 @@ public class LoginFrame extends JFrame {
 			public void run() {
 				try {
 					frame = new LoginFrame();
+					frame.setSize(400, 450);
+					frame.setLocationRelativeTo(null); 
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -40,27 +42,6 @@ public class LoginFrame extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-		
-		JButton btnNewButton = new JButton("New button");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			   // 隐藏登录界面
-				frame.setVisible(false);
-			
-				// 调用rank
-				EventQueue.invokeLater(new Runnable() {
-					public void run() {
-						try {
-							Rank frame = new Rank();
-							frame.setVisible(true);
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-					}
-				});
-			}
-		});
-		contentPane.add(btnNewButton, BorderLayout.SOUTH);
 	}
 
 }

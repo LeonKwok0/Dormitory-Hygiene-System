@@ -56,6 +56,8 @@ public class MainDemo extends JFrame {
 	private JLabel labelReturnResult;
 	private JTable tableRank;
 	private JScrollPane scrollPane;
+	private JTable tableAlarm;
+	private JScrollPane scrollPane_alram;
 	/**
 	 * Launch the application.
 	 */
@@ -344,6 +346,45 @@ public class MainDemo extends JFrame {
 
 		JPanel panelAlarn = new JPanel();
 		tabbedPane.addTab("Alarm", null, panelAlarn, null);
+		panelAlarn.setLayout(new BorderLayout(0, 0));
+		
+		JPanel panelAlaram_North = new JPanel();
+		panelAlarn.add(panelAlaram_North, BorderLayout.NORTH);
+		
+		JLabel labelalram = new JLabel("Points uder 60 will be shown here:");
+		
+		JButton btnNewButton_1 = new JButton("Refresh");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				alarm();
+			}
+		});
+		
+		// group layout for alram 
+		GroupLayout gl_panelAlaram_North = new GroupLayout(panelAlaram_North);
+		gl_panelAlaram_North.setHorizontalGroup(
+			gl_panelAlaram_North.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelAlaram_North.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(labelalram)
+					.addPreferredGap(ComponentPlacement.RELATED, 224, Short.MAX_VALUE)
+					.addComponent(btnNewButton_1)
+					.addContainerGap())
+		);
+		gl_panelAlaram_North.setVerticalGroup(
+			gl_panelAlaram_North.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, gl_panelAlaram_North.createParallelGroup(Alignment.BASELINE)
+					.addComponent(labelalram, GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
+					.addComponent(btnNewButton_1))
+		);
+		panelAlaram_North.setLayout(gl_panelAlaram_North);
+		
+		scrollPane_alram = new JScrollPane();
+		panelAlarn.add(scrollPane_alram, BorderLayout.CENTER);
+		tableAlarm = new JTable();
+		scrollPane_alram.setViewportView(tableAlarm);
+		
+		
 		contentPane.add(tabbedPane);
 	}
 
@@ -416,6 +457,14 @@ public class MainDemo extends JFrame {
 	}
 	
 	public void alarm(){
-		
+		 Vector columnHeads2;
+		 Vector rowdata2;
+		QueryTable query=new QueryTable();
+		query.Query("SELECT dorId, address, points FROM Dormitory WHERE points<60 ");
+		columnHeads2 = query.getColumnHeads();
+		rowdata2 = query.getRowdata();
+		tableAlarm = new JTable(rowdata2,columnHeads2 );
+		scrollPane_alram.setViewportView(tableAlarm);
+		query.closeConn();
 	}
 }

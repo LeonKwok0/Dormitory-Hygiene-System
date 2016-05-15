@@ -191,7 +191,4 @@ public class StudentFram extends JFrame {
 		}
 		return "Null,Unknown Reason";
 	}
-	
-	
-
 }

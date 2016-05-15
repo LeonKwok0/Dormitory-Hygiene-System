@@ -15,6 +15,8 @@ import java.awt.event.ActionListener;
 import java.security.acl.Group;
 import java.awt.event.ActionEvent;
 import java.awt.FlowLayout;
+
+import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.GridLayout;
@@ -22,13 +24,15 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JRadioButton;
 import java.awt.Color;
+import javax.swing.SwingConstants;
+import javax.swing.JPasswordField;
 
 public class LoginFrame extends JFrame {
 
 	private BackGroundPanel contentPane;
 	private static LoginFrame frame;
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField txtEnterYourId;
+	private JPasswordField passwordField;
 	/**
 	 * Launch the application.
 	 */
@@ -52,6 +56,7 @@ public class LoginFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public LoginFrame() {
+		setTitle("Dormitory Hygiene System-Login ");
 		ImageIcon im=new ImageIcon("images/bg1.jpg");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 400);
@@ -65,11 +70,29 @@ public class LoginFrame extends JFrame {
 		panel.setOpaque(false);
 		contentPane.add(panel, BorderLayout.CENTER);
 		
-		textField_1 = new JTextField();
-		textField_1.setForeground(Color.LIGHT_GRAY);
-		textField_1.setColumns(10);
+		txtEnterYourId = new JTextField();
+		txtEnterYourId.setText("Enter Your ID");
+		txtEnterYourId.setHorizontalAlignment(SwingConstants.CENTER);
+		txtEnterYourId.setForeground(Color.LIGHT_GRAY);
+		txtEnterYourId.setColumns(10);
 		
 		JButton btnNewButton = new JButton("Login");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CheckEnter();// check the enter 
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							Main frame = new Main();
+							frame.setVisible(true);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
+				
+			}
+		});
 		btnNewButton.setForeground(Color.BLACK);
 		
 		ImageIcon logo=new ImageIcon("images/logo.jpg");
@@ -79,16 +102,21 @@ public class LoginFrame extends JFrame {
 		logoLabel.setText("");
 		
 		JLabel label = new JLabel("");
+		label.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		JLabel label_1 = new JLabel("");
 		
-		textField = new JTextField();
-		textField.setColumns(10);
+		JRadioButton labelAdmin = new JRadioButton("Admin");
+		labelAdmin.setForeground(Color.WHITE);
+		JRadioButton labelStudent = new JRadioButton("Student");
+		labelStudent.setForeground(Color.WHITE);
+		ButtonGroup group=new ButtonGroup(); //创建按钮组
+		group.add(labelAdmin); 
+		group.add(labelStudent);
 		
-		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Admin");
-		rdbtnNewRadioButton_1.setForeground(Color.WHITE);
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("Student");
-		rdbtnNewRadioButton.setForeground(Color.WHITE);
+		passwordField = new JPasswordField();
+		passwordField.setHorizontalAlignment(SwingConstants.CENTER);
+		passwordField.setForeground(Color.LIGHT_GRAY);
 		
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
@@ -99,22 +127,23 @@ public class LoginFrame extends JFrame {
 							.addGap(257)
 							.addComponent(label))
 						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(129)
-							.addComponent(rdbtnNewRadioButton_1)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(rdbtnNewRadioButton))
+							.addGap(159)
+							.addComponent(logoLabel))
 						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(178)
+							.addGap(163)
 							.addComponent(btnNewButton))
 						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(125)
+							.addGap(116)
 							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-								.addComponent(textField, GroupLayout.PREFERRED_SIZE, 159, GroupLayout.PREFERRED_SIZE)
-								.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, 159, GroupLayout.PREFERRED_SIZE)))
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(159)
-							.addComponent(logoLabel)))
-					.addContainerGap(152, Short.MAX_VALUE))
+								.addGroup(gl_panel.createSequentialGroup()
+									.addGap(6)
+									.addComponent(labelAdmin)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(labelStudent))
+								.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+									.addComponent(passwordField, GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+									.addComponent(txtEnterYourId, GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)))))
+					.addGap(156))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -124,20 +153,24 @@ public class LoginFrame extends JFrame {
 					.addGap(71)
 					.addComponent(logoLabel)
 					.addGap(33)
-					.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addComponent(txtEnterYourId, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(4)
+					.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(rdbtnNewRadioButton_1)
-						.addComponent(rdbtnNewRadioButton))
-					.addGap(6)
-					.addComponent(btnNewButton))
+						.addComponent(labelAdmin)
+						.addComponent(labelStudent))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(btnNewButton)
+					.addGap(113))
 		);
 		panel.setLayout(gl_panel);
 		
 		
 	
+	}
+	public void CheckEnter(){
+		
 	}
 }
 

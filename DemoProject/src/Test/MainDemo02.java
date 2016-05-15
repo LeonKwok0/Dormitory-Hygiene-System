@@ -1,4 +1,4 @@
-package gui;
+package Test;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import entity.Dormitory;
+import gui.StudentFram;
 
 import javax.swing.JButton;
 import java.awt.GridLayout;

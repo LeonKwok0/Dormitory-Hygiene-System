@@ -1,5 +1,12 @@
 package gui;
-
+/**
+ * main 主界面
+ * 用来添加扣分记录 以及 排名和警告 
+ * 
+ * 问题： 
+ * 扣分记录部分 需要增加空值判断。 （在界面上显示但是 并没有初始一个值）
+ * 
+ */
 import entity.Dormitory;
 
 import java.awt.BorderLayout;

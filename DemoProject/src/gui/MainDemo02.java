@@ -6,6 +6,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import entity.Dormitory;
+
 import javax.swing.JButton;
 import java.awt.GridLayout;
 import javax.swing.Box;
@@ -22,6 +25,7 @@ public class MainDemo02 extends JFrame {
 	private JPanel panel;
 	private JPanel panel_1;
 	private JPanel panel_2;
+	static MainDemo02 frame1 ;
 
 	/**
 	 * Launch the application.
@@ -30,8 +34,8 @@ public class MainDemo02 extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MainDemo02 frame = new MainDemo02();
-					frame.setVisible(true);
+					frame1= new MainDemo02();
+					frame1.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -60,7 +64,22 @@ public class MainDemo02 extends JFrame {
 		JButton btnNewButton = new JButton("New button");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				frame1.setVisible(false);
+				Dormitory dor=new Dormitory();
+				dor.setDorId("06104");
 				
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							StudentFram frame = new StudentFram(dor);
+							frame.setVisible(true);
+							frame.setSize(500,600);
+							
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
 			}
 		});
 		btnNewButton.setSize(10, 10);

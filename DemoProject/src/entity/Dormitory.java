@@ -6,6 +6,13 @@ public class Dormitory {
 	private String reasons;
 	private int deductPoints;
 	private int allpoints;
+	private String password;
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
 	public String getDorId() {
 		return dorId;
 	}

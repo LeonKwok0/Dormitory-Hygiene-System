@@ -87,4 +87,30 @@ public class Deduct {
 	}
 	
 	
+	/**
+	 * this very bad design of dao class
+	 * write same code for 2 times 
+	 * just because this is my frist time to do this 
+	 * and dont have an example (i am very sorry )
+	 * if i have time i will redesign this class  
+	 */
+	public String  queryMemebers(Dormitory dor) throws SQLException{
+		if(idExists(dor)){
+			System.out.println("ID Exist");
+			conn=ConnectionFactory.getInstance().makeConnection();
+			String sql3="SELECT student FROM  Dormitory WHERE dorId=?";
+			PreparedStatement ps3 = conn.prepareCall(sql3);
+			ps3.setString(1, dor.getDorId());
+			 ResultSet rs=ps3.executeQuery();
+			if(rs.next()){
+				return rs.getString("student"); 
+			}else{
+				return "query Successfully but the table is empty";
+			}
+			 
+		}
+
+		return "No this Dor ID";
+	}
+	
 }

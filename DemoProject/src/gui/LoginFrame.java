@@ -21,6 +21,7 @@ import java.awt.GridLayout;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JRadioButton;
+import java.awt.Color;
 
 public class LoginFrame extends JFrame {
 
@@ -37,7 +38,7 @@ public class LoginFrame extends JFrame {
 			public void run() {
 				try {
 					frame = new LoginFrame();
-					frame.setSize(400, 300);
+					frame.setSize(400, 400);
 					frame.setLocationRelativeTo(null); 
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -65,15 +66,17 @@ public class LoginFrame extends JFrame {
 		contentPane.add(panel, BorderLayout.CENTER);
 		
 		textField_1 = new JTextField();
+		textField_1.setForeground(Color.LIGHT_GRAY);
 		textField_1.setColumns(10);
 		
-		JButton btnNewButton = new JButton("登录");
+		JButton btnNewButton = new JButton("Login");
+		btnNewButton.setForeground(Color.BLACK);
 		
 		ImageIcon logo=new ImageIcon("images/logo.jpg");
-		logo.setImage(logo.getImage().getScaledInstance(100, 100,
+		logo.setImage(logo.getImage().getScaledInstance(90, 90,
 			    Image.SCALE_DEFAULT));
 		JLabel logoLabel = new JLabel(logo);
-		logoLabel.setText("logo");
+		logoLabel.setText("");
 		
 		JLabel label = new JLabel("");
 		
@@ -83,31 +86,35 @@ public class LoginFrame extends JFrame {
 		textField.setColumns(10);
 		
 		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Admin");
+		rdbtnNewRadioButton_1.setForeground(Color.WHITE);
 		JRadioButton rdbtnNewRadioButton = new JRadioButton("Student");
+		rdbtnNewRadioButton.setForeground(Color.WHITE);
 		
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
-					.addGap(257)
-					.addComponent(label))
-				.addGroup(gl_panel.createSequentialGroup()
-					.addGap(193)
-					.addComponent(logoLabel))
-				.addGroup(gl_panel.createSequentialGroup()
-					.addGap(135)
-					.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, 159, GroupLayout.PREFERRED_SIZE))
-				.addGroup(gl_panel.createSequentialGroup()
-					.addGap(135)
-					.addComponent(textField, GroupLayout.PREFERRED_SIZE, 159, GroupLayout.PREFERRED_SIZE))
-				.addGroup(gl_panel.createSequentialGroup()
-					.addGap(135)
-					.addComponent(rdbtnNewRadioButton_1)
-					.addGap(6)
-					.addComponent(rdbtnNewRadioButton))
-				.addGroup(gl_panel.createSequentialGroup()
-					.addGap(178)
-					.addComponent(btnNewButton))
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGap(257)
+							.addComponent(label))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGap(129)
+							.addComponent(rdbtnNewRadioButton_1)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(rdbtnNewRadioButton))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGap(178)
+							.addComponent(btnNewButton))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGap(125)
+							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+								.addComponent(textField, GroupLayout.PREFERRED_SIZE, 159, GroupLayout.PREFERRED_SIZE)
+								.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, 159, GroupLayout.PREFERRED_SIZE)))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGap(159)
+							.addComponent(logoLabel)))
+					.addContainerGap(152, Short.MAX_VALUE))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -118,10 +125,10 @@ public class LoginFrame extends JFrame {
 					.addComponent(logoLabel)
 					.addGap(33)
 					.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(12)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(rdbtnNewRadioButton_1)
 						.addComponent(rdbtnNewRadioButton))
 					.addGap(6)

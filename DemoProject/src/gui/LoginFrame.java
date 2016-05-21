@@ -9,6 +9,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import dao.Login;
+import entity.Dormitory;
+import entity.User;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -33,6 +38,10 @@ public class LoginFrame extends JFrame {
 	private static LoginFrame frame;
 	private JTextField txtEnterYourId;
 	private JPasswordField passwordField;
+	private Login login;
+	private Dormitory dor;
+	private User user;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -76,14 +85,16 @@ public class LoginFrame extends JFrame {
 		txtEnterYourId.setForeground(Color.LIGHT_GRAY);
 		txtEnterYourId.setColumns(10);
 		
+		
 		JButton btnNewButton = new JButton("Login");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CheckEnter();// check the enter 
+			
+				frame.setVisible(false);
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							Main frame = new Main();
+							Main frame = new Main(user);
 							frame.setVisible(true);
 						} catch (Exception e) {
 							e.printStackTrace();
@@ -95,7 +106,7 @@ public class LoginFrame extends JFrame {
 		});
 		btnNewButton.setForeground(Color.BLACK);
 		
-		ImageIcon logo=new ImageIcon("images/logo.jpg");
+		ImageIcon logo=new ImageIcon("images/logo22.jpg");
 		logo.setImage(logo.getImage().getScaledInstance(90, 90,
 			    Image.SCALE_DEFAULT));
 		JLabel logoLabel = new JLabel(logo);
@@ -110,7 +121,8 @@ public class LoginFrame extends JFrame {
 		labelAdmin.setForeground(Color.WHITE);
 		JRadioButton labelStudent = new JRadioButton("Student");
 		labelStudent.setForeground(Color.WHITE);
-		ButtonGroup group=new ButtonGroup(); //创建按钮组
+	
+		ButtonGroup group=new ButtonGroup(); 
 		group.add(labelAdmin); 
 		group.add(labelStudent);
 		
@@ -165,13 +177,10 @@ public class LoginFrame extends JFrame {
 					.addGap(113))
 		);
 		panel.setLayout(gl_panel);
-		
-		
+	}
 	
-	}
-	public void CheckEnter(){
-		
-	}
+	
+	
 }
 
 

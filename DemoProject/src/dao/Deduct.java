@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+
+import javax.swing.JOptionPane;
 
 import entity.Dormitory;
 import gui.Error;
@@ -112,5 +115,30 @@ public class Deduct {
 
 		return "No this Dor ID";
 	}
+	
+	
+	public void Reset(){
+		
+		conn=ConnectionFactory.getInstance().makeConnection();	
+		String sql="UPDATE Dormitory SET points='100'";
+		Statement st;
+		try {
+			st = conn.createStatement();
+			st.executeUpdate(sql);
+			st.close();
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null,"Can not reset the points!", "Error", JOptionPane.ERROR_MESSAGE); 
+			
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
+	
+	
+
 	
 }

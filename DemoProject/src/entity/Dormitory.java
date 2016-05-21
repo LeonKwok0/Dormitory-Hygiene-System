@@ -1,24 +1,20 @@
 package entity;
 
-public class Dormitory {
+public class Dormitory extends User {
 	private String dorId;
 	private String time;
 	private String reasons;
 	private int deductPoints;
 	private int allpoints;
-	private String password;
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
+	
 	public String getDorId() {
 		return dorId;
 	}
+	
 	public void setDorId(String dorId) {
 		this.dorId = dorId;
 	}
+	
 	public String getTime() {
 		return time;
 	}

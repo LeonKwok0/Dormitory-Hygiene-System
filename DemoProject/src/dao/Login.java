@@ -53,4 +53,9 @@ public class Login {
 	}
 	
 	
+	public void checkInput(){
+		
+	}
+	
+	
 }

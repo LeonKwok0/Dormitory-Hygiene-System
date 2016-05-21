@@ -47,6 +47,7 @@ public class ConnectionFactory {
 		try{
 			Class.forName(driver);
 			conn= DriverManager.getConnection(dburl,user,password);
+			
 		}catch(Exception e){
 			e.printStackTrace();
 		}

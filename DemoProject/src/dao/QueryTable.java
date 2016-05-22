@@ -8,6 +8,8 @@ import java.sql.Statement;
 
 import java.util.Vector;
 
+import javax.swing.JOptionPane;
+
 /**
  * 用来获取表的记录、
  * 
@@ -24,7 +26,7 @@ public class QueryTable {
 	public void Query(String sql) {
 		try {
 			conn = ConnectionFactory.getInstance().makeConnection();
-			// 建立数据库连接
+			// 建立数据库连接 
 			st = conn.createStatement();
 			// 获取statement实例
 			rs = st.executeQuery(sql);
@@ -40,6 +42,7 @@ public class QueryTable {
 		boolean record = rs.next();
 		if (!record) {
 			System.out.println("表中无值 Empaty table");
+			JOptionPane.showMessageDialog(null, "No record", "", JOptionPane.ERROR_MESSAGE); 
 			return;
 		}
 		columnHeads = new Vector();

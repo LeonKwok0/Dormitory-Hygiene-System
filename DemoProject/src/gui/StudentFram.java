@@ -30,7 +30,6 @@ import java.awt.event.ActionEvent;
  * and current; 
  * a place need to improve that, in this calss ,need to creat 6 SQL connection 
  * it is terrible . improve it (if i have time)
- * @author moxjane
  *
  */
 public class StudentFram extends JFrame {
@@ -47,34 +46,35 @@ public class StudentFram extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		
-
-		
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					// new a dormitory object for test 
-					Dormitory dor =new Dormitory();
-					dor.setDorId("01101");
-					StudentFram frame = new StudentFram(dor);
-					frame.setVisible(true);
-					frame.setSize(500,600);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					// new a dormitory object for test 
+//					Dormitory dor =new Dormitory();
+//					dor.setDorId("01101");
+//					dor.setName("01101");
+//					StudentFram frame = new StudentFram(dor);
+//					frame.setVisible(true);
+//					
+//					
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.
 	 */
 	public StudentFram(Dormitory dor) {
+		setTitle("Dormitory Hygiene System");
 		this.dor=dor;
-		
+		setSize(700,650);
+		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+//		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -102,19 +102,41 @@ public class StudentFram extends JFrame {
 				getDuctTable();
 			}
 		});
+		
+		JLabel lblNewLabel = new JLabel("Modify Password: ");
+		
+		JButton btnNewButton_1 = new JButton("Edit");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							EditPasswordFramesStu frame= new EditPasswordFramesStu(dor);		
+							frame.setVisible(true);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
+			}
+		});
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel.createSequentialGroup()
-							.addComponent(lblNewLabel_2)
-							.addPreferredGap(ComponentPlacement.RELATED, 250, Short.MAX_VALUE)
-							.addComponent(btnNewButton))
 						.addComponent(Id_Label)
 						.addComponent(points_Label)
-						.addComponent(Members_label))
+						.addComponent(Members_label)
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblNewLabel_2)
+								.addComponent(lblNewLabel))
+							.addPreferredGap(ComponentPlacement.RELATED, 212, Short.MAX_VALUE)
+							.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING, false)
+								.addComponent(btnNewButton_1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(btnNewButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
 					.addContainerGap())
 		);
 		gl_panel.setVerticalGroup(
@@ -126,10 +148,14 @@ public class StudentFram extends JFrame {
 					.addComponent(points_Label)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(Members_label)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnNewButton_1)
+						.addComponent(lblNewLabel))
 					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNewLabel_2)
-						.addComponent(btnNewButton)))
+						.addComponent(btnNewButton)
+						.addComponent(lblNewLabel_2)))
 		);
 		panel.setLayout(gl_panel);
 		

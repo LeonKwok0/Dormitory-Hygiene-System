@@ -469,6 +469,22 @@ public class Main extends JFrame {
 		JSeparator separator_3 = new JSeparator();
 		
 		JButton btnNewButton_4 = new JButton("Add");
+		btnNewButton_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							addAdmin frame = new addAdmin();
+//							frame.setSize(400, 400);
+							frame.setLocationRelativeTo(null);
+							frame.setVisible(true);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
+			}
+		});
 		
 		JLabel lblNewLabel_12 = new JLabel("Click Add Button  to admin account. ");
 		

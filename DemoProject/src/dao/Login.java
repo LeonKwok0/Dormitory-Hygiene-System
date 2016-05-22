@@ -38,7 +38,7 @@ public class Login {
 		try {
 			conn = ConnectionFactory.getInstance().makeConnection();
 			PreparedStatement ps = conn.prepareCall(sql);
-			ps.setString(1,dor.getDorId());
+			ps.setString(1,dor.getName());
 			ps.setString(2,dor.getPassword());
 		    rs=ps.executeQuery();
 		    login = rs.next();

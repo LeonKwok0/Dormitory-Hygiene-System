@@ -5,6 +5,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.Properties;
 
+import javax.swing.JOptionPane;
+
 public class ConnectionFactory {
 	private static String driver;
 	private static String dburl;
@@ -41,7 +43,7 @@ public class ConnectionFactory {
 	}
 	
 	
-// 建立数据库连接 
+// establish database connection 
 	public  Connection makeConnection(){
 		Connection conn=null;
 		try{
@@ -49,6 +51,7 @@ public class ConnectionFactory {
 			conn= DriverManager.getConnection(dburl,user,password);
 			
 		}catch(Exception e){
+			JOptionPane.showMessageDialog(null,"Can not establish a database connection ", "Error:", JOptionPane.ERROR_MESSAGE); 
 			e.printStackTrace();
 		}
 		return conn;

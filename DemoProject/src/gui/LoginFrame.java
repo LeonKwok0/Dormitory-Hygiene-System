@@ -18,6 +18,7 @@ import entity.User;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.net.URL;
 import java.security.acl.Group;
 import java.awt.event.ActionEvent;
 import java.awt.FlowLayout;
@@ -72,7 +73,8 @@ public class LoginFrame extends JFrame {
 							// not beautiful
 		setResizable(false);
 		setTitle("Dormitory Hygiene System-Login ");
-		ImageIcon im = new ImageIcon("images/bg1.jpg");
+		URL imgURL=LoginFrame.class.getResource("/images/bg1.jpg");
+		ImageIcon im = new ImageIcon(imgURL);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 382, 362);
 		contentPane = new BackGroundPanel(im.getImage());
@@ -112,7 +114,7 @@ public class LoginFrame extends JFrame {
 
 					if (labelAdmin.isSelected()) {
 						if (login.checkAdmin(dor)) {
-							frame.setVisible(false);
+							dispose();
 							EventQueue.invokeLater(new Runnable() {
 								public void run() {
 									try {
@@ -131,7 +133,7 @@ public class LoginFrame extends JFrame {
 					} else {
 						System.out.println(dor.getName() + " " + dor.getPassword());
 						if (login.checkStudent(dor)) {
-							frame.setVisible(false);
+							dispose();
 							EventQueue.invokeLater(new Runnable() {
 								public void run() {
 									try {
@@ -140,12 +142,13 @@ public class LoginFrame extends JFrame {
 									} catch (Exception e) {
 										e.printStackTrace();
 									}
+									
 								}
 							});
 						} else {
 
 							JOptionPane.showMessageDialog(null,
-									"ID or Password is wrong+\nStudent use Dormitory id to login \nExample:01101 defult password is your id",
+									"ID or Password is wrong\nStudent use Dormitory id to login \nExample:01101 defult password is 123456",
 									"Error: ", JOptionPane.ERROR_MESSAGE);
 						}
 					}
@@ -154,8 +157,8 @@ public class LoginFrame extends JFrame {
 			}
 		});
 		btnNewButton.setForeground(Color.BLACK);
-
-		ImageIcon logo = new ImageIcon("images/logo1.png");
+		URL logURL=LoginFrame.class.getResource("/images/logo1.png");
+		ImageIcon logo = new ImageIcon(logURL);
 		logo.setImage(logo.getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));
 		JLabel logoLabel = new JLabel(logo);
 		logoLabel.setText("");

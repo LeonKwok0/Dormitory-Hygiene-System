@@ -49,24 +49,24 @@ public class StudentFram extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					// new a dormitory object for test 
-					Dormitory dor =new Dormitory();
-					dor.setDorId("01101");
-					dor.setName("01101");
-					StudentFram frame = new StudentFram(dor);
-					frame.setVisible(true);
-					
-					
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					// new a dormitory object for test 
+//					Dormitory dor =new Dormitory();
+//					dor.setDorId("01101");
+//					dor.setName("01101");
+//					StudentFram frame = new StudentFram(dor);
+//					frame.setVisible(true);
+//					
+//					
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.
@@ -193,7 +193,8 @@ public class StudentFram extends JFrame {
 	
 	
 	public void getDuctTable(){
-		query.Query("SELECT time,reason,points FROM  deduction_record order by time DESC");
+		String sql="SELECT time,reason,points FROM  deduction_record where dorId="+dor.getName()+" order by time DESC";
+		query.Query(sql);
 		columnHeads = query.getColumnHeads();
 		rowdata = query.getRowdata();
 		tableDuct = new JTable(rowdata, columnHeads);

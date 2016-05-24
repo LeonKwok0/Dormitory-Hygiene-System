@@ -2,6 +2,8 @@ package util;
 
 import javax.swing.*;
 
+import org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper;
+
 import gui.LoginFrame;
 
 import java.awt.*;
@@ -77,6 +79,16 @@ public class Splash {
 		}
 		if (splash != null)
 			splash.close();
+//		 try {
+//			// set Beauty Eye as look&feel
+//			org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
+//		
+//			BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.FrameBorderStyle.translucencyAppleLike;
+//			UIManager.put("RootPane.setupButtonVisible", false);// hide setting button
+//		} catch (Exception e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {

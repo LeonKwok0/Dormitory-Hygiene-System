@@ -7,6 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper;
+
 import dao.Deduct;
 import dao.QueryTable;
 import entity.Dormitory;
@@ -19,6 +21,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.GridLayout;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.UIManager;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -46,29 +49,45 @@ public class StudentFram extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					// new a dormitory object for test 
-//					Dormitory dor =new Dormitory();
-//					dor.setDorId("01101");
-//					dor.setName("01101");
-//					StudentFram frame = new StudentFram(dor);
-//					frame.setVisible(true);
-//					
-//					
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					// new a dormitory object for test 
+					Dormitory dor =new Dormitory();
+					dor.setDorId("01101");
+					dor.setName("01101");
+					StudentFram frame = new StudentFram(dor);
+					frame.setVisible(true);
+					
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 
 	/**
 	 * Create the frame.
 	 */
 	public StudentFram(Dormitory dor) {
+		 try {
+			// set Beauty Eye as look&feel
+			org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
+			/* set frameBorderStyle 
+			 * 强立体半透明	translucencyAppleLike
+			 * 弱立体感半透明	translucencySmallShadow
+			 * 普通不透明	 generalNoTranslucencyShadow
+			 * 系统默认样式	osLookAndFeelDecorated
+			 */
+			BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.FrameBorderStyle.translucencyAppleLike;
+			UIManager.put("RootPane.setupButtonVisible", false);// hide setting button
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		setTitle("Dormitory Hygiene System");
 		this.dor=dor;
 		setSize(700,650);

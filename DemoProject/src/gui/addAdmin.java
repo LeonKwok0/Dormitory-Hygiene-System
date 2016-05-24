@@ -18,7 +18,7 @@ public class addAdmin extends JFrame {
 		setTitle("Add Addministrator");
 		setSize(300, 250);
 		setLocationRelativeTo(null);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setVisible(true);
 		JPanel adduser = new JPanel();
 		adduser.setLayout(new GridLayout(3, 2, 20, 20));

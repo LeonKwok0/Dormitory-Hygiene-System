@@ -11,6 +11,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper;
+
 import dao.Login;
 import entity.Dormitory;
 import entity.User;
@@ -32,7 +34,11 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JRadioButton;
 import java.awt.Color;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 import javax.swing.JPasswordField;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.Toolkit;
 
 public class LoginFrame extends JFrame {
 
@@ -51,6 +57,22 @@ public class LoginFrame extends JFrame {
 	 */
 
 	public static void main(String[] args) {
+//		 try {
+//				// set Beauty Eye as look&feel
+//				org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
+//				/* set frameBorderStyle 
+//				 * 强立体半透明	translucencyAppleLike
+//				 * 弱立体感半透明	translucencySmallShadow
+//				 * 普通不透明	 generalNoTranslucencyShadow
+//				 * 系统默认样式	osLookAndFeelDecorated
+//				 */
+//				BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.FrameBorderStyle.osLookAndFeelDecorated;
+//				UIManager.put("RootPane.setupButtonVisible", false);// hide setting button
+//			} catch (Exception e1) {
+//				// TODO Auto-generated catch block
+//				e1.printStackTrace();
+//			}
+
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -69,12 +91,24 @@ public class LoginFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public LoginFrame() {
+		Toolkit kit =Toolkit.getDefaultToolkit();
+		URL imgURL= LoginFrame.class.getResource("/images/logo1.png");
+		Image image=kit.createImage(imgURL);
+		setIconImage(image);
 		setFocusable(true);// set focuseable or it will focuse on textfield it
 							// not beautiful
 		setResizable(false);
+		
+		
+//		setUndecorated(true);
+//		setBackground(new Color(0,0,0,0));
+		
+		
 		setTitle("Dormitory Hygiene System-Login ");
-		URL imgURL=LoginFrame.class.getResource("/images/bg1.jpg");
-		ImageIcon im = new ImageIcon(imgURL);
+		URL imgURL1=LoginFrame.class.getResource("/images/bg1.jpg");
+		ImageIcon im = new ImageIcon(imgURL1);
+//		ImageIcon im = new ImageIcon("images/bg1.jpg");
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 382, 362);
 		contentPane = new BackGroundPanel(im.getImage());
@@ -88,6 +122,14 @@ public class LoginFrame extends JFrame {
 		contentPane.add(panel, BorderLayout.CENTER);
 
 		txtEnterYourId = new JTextField();
+		
+		txtEnterYourId.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				txtEnterYourId.setForeground(Color.black);
+				
+			}
+		});
 		txtEnterYourId.setToolTipText("Student use Dormitory id to login Example:01101 defult password is your id");
 		txtEnterYourId.setText("Enter Your ID");
 		txtEnterYourId.setHorizontalAlignment(SwingConstants.CENTER);
@@ -115,6 +157,21 @@ public class LoginFrame extends JFrame {
 					if (labelAdmin.isSelected()) {
 						if (login.checkAdmin(dor)) {
 							dispose();
+							try {
+								// set Beauty Eye as look&feel
+								org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
+							
+								BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.FrameBorderStyle.translucencyAppleLike;
+								UIManager.put("RootPane.setupButtonVisible", false);// hide setting
+																					// button
+								UIManager.put("TabbedPane.tabAreaInsets"
+									    , new javax.swing.plaf.InsetsUIResource(3,20,2,20));// set TabbedPane to leading
+								
+//								btnInstance.setUI(new BEButtonUI().setNormalColor(BEButtonUI.NormalColor.green));
+							} catch (Exception e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
 							EventQueue.invokeLater(new Runnable() {
 								public void run() {
 									try {
@@ -134,6 +191,17 @@ public class LoginFrame extends JFrame {
 						System.out.println(dor.getName() + " " + dor.getPassword());
 						if (login.checkStudent(dor)) {
 							dispose();
+							 try {
+									// set Beauty Eye as look&feel
+									org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
+								
+									BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.FrameBorderStyle.translucencyAppleLike;
+									UIManager.put("RootPane.setupButtonVisible", false);// hide setting button
+								} catch (Exception e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
+								
 							EventQueue.invokeLater(new Runnable() {
 								public void run() {
 									try {
@@ -159,6 +227,7 @@ public class LoginFrame extends JFrame {
 		btnNewButton.setForeground(Color.BLACK);
 		URL logURL=LoginFrame.class.getResource("/images/logo1.png");
 		ImageIcon logo = new ImageIcon(logURL);
+//		ImageIcon logo = new ImageIcon("images/logo1.png");
 		logo.setImage(logo.getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));
 		JLabel logoLabel = new JLabel(logo);
 		logoLabel.setText("");
@@ -169,12 +238,21 @@ public class LoginFrame extends JFrame {
 		labelAdmin.setForeground(Color.WHITE);
 		labelStudent = new JRadioButton("Student");
 		labelStudent.setForeground(Color.WHITE);
+		labelStudent.setContentAreaFilled(false);
+		labelAdmin.setContentAreaFilled(false);
 
 		ButtonGroup group = new ButtonGroup();
 		group.add(labelAdmin);
 		group.add(labelStudent);
 
 		passwordField = new JPasswordField();
+		passwordField.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				passwordField.setForeground(Color.black);
+			}
+		});
+		
 		passwordField.setHorizontalAlignment(SwingConstants.CENTER);
 		passwordField.setForeground(Color.LIGHT_GRAY);
 

@@ -98,6 +98,7 @@ public class Main extends JFrame {
 	 * Create the frame.
 	 */
 	public Main(User user) {
+		setTitle("Dormitory Health Management System-Remote Version\r");
 
 		try {
 			// set Beauty Eye as look&feel

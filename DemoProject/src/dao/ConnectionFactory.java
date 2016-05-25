@@ -48,7 +48,10 @@ public class ConnectionFactory {
 			conn = DriverManager.getConnection(dburl, user, password);
 
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Can not establish a database connection ", "Error:",
+			JOptionPane.showMessageDialog(null, "Can not establish a database connection"
+					+ "\nThis version need remote database"
+					+ "\n(demo until June 9)to suporrt."
+					+ "\nPlease check your Internet", "Error:",
 					JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 		}

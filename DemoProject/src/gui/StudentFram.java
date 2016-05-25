@@ -88,7 +88,7 @@ public class StudentFram extends JFrame {
 			e1.printStackTrace();
 		}
 		
-		setTitle("Dormitory Hygiene System");
+		setTitle("Dormitory Health Management System-Remote Version");
 		this.dor=dor;
 		setSize(700,650);
 		setLocationRelativeTo(null);
@@ -102,7 +102,7 @@ public class StudentFram extends JFrame {
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.NORTH);
 		
-		
+	
 		
 		points_Label = new JLabel("Current Points:"+ShowCurrentPoints());
 		
@@ -119,6 +119,7 @@ public class StudentFram extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				getDuctTable();
+				points_Label.setText("Members:"+ShowMembers());
 			}
 		});
 		
@@ -185,8 +186,8 @@ public class StudentFram extends JFrame {
 		scrollPane = new JScrollPane();
 		panel_1.add(scrollPane, BorderLayout.CENTER);
 		
-		getDuctTable();
-		scrollPane.setViewportView(tableDuct);
+//		getDuctTable();
+//		scrollPane.setViewportView(tableDuct);
 	}
 	
 	

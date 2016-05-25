@@ -104,7 +104,7 @@ public class LoginFrame extends JFrame {
 //		setBackground(new Color(0,0,0,0));
 		
 		
-		setTitle("Dormitory Hygiene System-Login ");
+		setTitle("Dormitory Health System-Remote\r");
 		URL imgURL1=LoginFrame.class.getResource("/images/bg1.jpg");
 		ImageIcon im = new ImageIcon(imgURL1);
 //		ImageIcon im = new ImageIcon("images/bg1.jpg");
@@ -127,7 +127,7 @@ public class LoginFrame extends JFrame {
 			@Override
 			public void focusGained(FocusEvent e) {
 				txtEnterYourId.setForeground(Color.black);
-				
+				txtEnterYourId.setText(" ");	
 			}
 		});
 		txtEnterYourId.setToolTipText("Student use Dormitory id to login Example:01101 defult password is your id");

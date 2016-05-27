@@ -13,30 +13,19 @@ In addition, we added student client program, which students can use to check ro
 For practical purposes, we added the resetting function to reset dormitory grades to default value. 
 
 
-To sum up, we have the functions of: 
-1)  Logging in with a student or administration account.
-2)	Deducting points with reason template.
-3)	Generating rank order by points automatically.
-4)	Generating Alert List automatically.
-5)	Changing the student or administrator’s password. 
-6)	Adding administrator account. 
-7)	Querying record of deducting scores and grades (for students). 
-
-
-
-eceiving low points warring (for students).
-
-
-
-
-
-
-
+To sum up, we have the functions of:    
+1)  Logging in with a student or administration account.  
+2)	Deducting points with reason template.  
+3)	Generating rank order by points automatically.  
+4)	Generating Alert List automatically.  
+5)	Changing the student or administrator’s password.   
+6)	Adding administrator account.   
+7)	Querying record of deducting scores and grades (for students).   
+8) receiving low points warring (for students).  
 
 **Source Code:**  
-
-Project released on Github:
-[ https://github.com/LeonKwok0/Dormitory-Hygiene-System][1]
+Project released on Github:   
+[ https://github.com/LeonKwok0/Dormitory-Hygiene-System][1]  
 You can click Download ZIP button to download the whole source code. 
 OR 
 Use command: 
